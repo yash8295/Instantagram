@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>
+			Instantagram
+		</title>
+	</head>
+	<body>
+		<form id='register' autocomplete='off'>
+			<input type='text' placeholder='Username' onfocus="changePlace(this,'')" onblur="changePlace(this,'Username')" required  />
+			<input type='email' placeholder='Email' onfocus="changePlace(this,'')" onblur="changePlace(this,'Email')" required  />
+			<input type='name' placeholder='Name' onfocus="changePlace(this,'')" onblur="changePlace(this,'Name')" required  />
+			<input type='password' placeholder='Password' onfocus="changePlace(this,'')" onblur="changePlace(this,'Password')" required  />
+			<button type="submit" value="Register" autofocus id='registerbtn'>Register</button>
+		</form>
+		<button type="button" onclick="location.href='register'">Register</button>
+	</body>
+	<script>
+		function changePlace(obj,str)
+		{
+			//console.log(obj);
+			obj.placeholder=str;
+		}
+		var form=document.getElementById('register');
+		
+		form.addEventListener('submit',function(){
+		
+			event.preventDefault();
+			var xhr=new XMLHttpRequest();
+			xhr.open('post','/register');
+			xhr.setRequestHeader('content-type','application/json');
+			var data=
+			{
+				username:form.elements[0].value,
+				email:form.elements[1].value,
+				name:form.elements[2].value,
+				password:form.elements[3].value
+			}
+			xhr.send(JSON.stringify(data));
+			
+			xhr.addEventListener('load',function(){
+			
+				var res=xhr.responseText;
+				alert(res);
+			
+			});
+		
+		});
+	</script>
+</html>

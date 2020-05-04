@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>
+			Instantagram
+		</title>
+	</head>
+	<body>
+		<form id='login'>
+			<input type='text' placeholder='Username' onfocus="changePlace(this,'')" onblur="changePlace(this,'Username')" required autocomplete />
+			<input type='password' placeholder='Password' onfocus="changePlace(this,'')" onblur="changePlace(this,'Password')" required autocomplete />
+			<button type="submit" value="Login" autofocus id='loginbtn'>Login</button>
+		</form>
+		<button type="button" onclick="location.href='register'">Register</button>
+	</body>
+	<script>
+		function changePlace(obj,str)
+		{
+			//console.log(obj);
+			obj.placeholder=str;
+		}
+		var form=document.getElementById('login');
+		
+		form.addEventListener('submit',function(){
+		
+			event.preventDefault();
+			var xhr=new XMLHttpRequest();
+			xhr.open('post','/login');
+			xhr.setRequestHeader('content-type','application/json');
+			var data=
+			{
+				username:form.elements[0].value,
+				password:form.elements[1].value
+			}
+			xhr.send(JSON.stringify(data));
+			
+			xhr.addEventListener('load',function(){
+			
+				var res=xhr.responseText;
+				alert(res);
+			
+			});
+		
+		});
+	</script>
+</html>
