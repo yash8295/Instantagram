@@ -69,7 +69,7 @@ const isBlocked = async (block_by, user) => {
 
 const deactivate = async (user, req, res) => {
   let posts = await db.query('SELECT post_id FROM posts WHERE user=?', [user]),
-    groups = await db.query('SELECT group_id FROM groups WHERE admin=?', [
+    groups = await db.query('SELECT group_id FROM \`groups\` WHERE admin=?', [
       user,
     ]),
     cons = await db.query(

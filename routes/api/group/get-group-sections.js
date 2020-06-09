@@ -6,7 +6,7 @@ const app = require('express').Router(),
 
 app.post('/get-user-groups', async (req, res) => {
   let _groups = await db.query(
-      'SELECT groups.group_id, groups.name, groups.admin, group_members.member, group_members.joined_group FROM group_members, `groups` WHERE group_members.member = ? AND group_members.group_id = groups.group_id ORDER BY groups.created DESC',
+      'SELECT groups.group_id, groups.name, groups.admin, group_members.member, group_members.joined_group FROM group_members, \`groups\` WHERE group_members.member = ? AND group_members.group_id = groups.group_id ORDER BY groups.created DESC',
       [req.body.user]
     ),
     groups = []
@@ -21,7 +21,7 @@ app.post('/get-user-groups', async (req, res) => {
 
 app.post('/get-group-posts', async (req, res) => {
   let _posts = await db.query(
-      'SELECT posts.post_id, posts.user, users.username, users.firstname, users.surname, posts.description, posts.imgSrc, posts.filter, posts.location, posts.type, posts.group_id, groups.name AS group_name, posts.post_time FROM posts, `groups`, users WHERE posts.group_id=? AND posts.user = users.id AND posts.group_id = groups.group_id AND posts.type=? ORDER BY posts.post_time DESC',
+      'SELECT posts.post_id, posts.user, users.username, users.firstname, users.surname, posts.description, posts.imgSrc, posts.filter, posts.location, posts.type, posts.group_id, groups.name AS group_name, posts.post_time FROM posts, \`groups\`, users WHERE posts.group_id=? AND posts.user = users.id AND posts.group_id = groups.group_id AND posts.type=? ORDER BY posts.post_time DESC',
       [req.body.group, 'group']
     ),
     posts = []
